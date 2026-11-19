@@ -1,0 +1,6 @@
+{% extends 'base.html' %}
+{% block title %}Your orders | ShopEase{% endblock %}
+{% block content %}
+<section class="page-intro compact-intro"><div class="shell"><span class="eyebrow">GOOD THINGS ON THEIR WAY</span><h1>Your <em>orders.</em></h1><p>Every find, all in one place.</p></div></section>
+<section class="shell order-list-section">{% for order in orders %}<a class="order-list-card" href="{% url 'order_detail' order.number %}"><div class="order-card-top"><span>ORDER {{ order.number }}</span><span class="status-pill status-{{ order.status }}">{{ order.get_status_display }}</span></div><div class="order-card-bottom"><span>{{ order.created_at|date:"M j, Y" }} · {{ order.items.count }} item{{ order.items.count|pluralize }}</span><strong>${{ order.total|floatformat:2 }}</strong><span class="order-arrow">↗</span></div></a>{% empty %}<div class="empty-state"><span>↗</span><h2>No orders just yet.</h2><p>Your next favourite is waiting to be found.</p><a class="button button-dark" href="{% url 'product_list' %}">Start exploring</a></div>{% endfor %}</section>
+{% endblock %}
